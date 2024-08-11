@@ -5,41 +5,17 @@ int  main() {
     int N, L;
     cin >> N >> L;
 
-    int sequenceNum = L;
-    int startNum;
-    int share;
-    int found = false;
-    while (true)
-    {   
-        if (N < L*(L-1)/2)
-            break;
-
-        int num = N * 2;
-        if (num % sequenceNum == 0)
-        {
-            share = num / sequenceNum;
-            startNum = (share - (sequenceNum - 1));
-            if (startNum < 0)
-                break;
-            else if (startNum % 2 == 0)
-            {
-                found = true;
-                break;
-            }
-
-        }
-        sequenceNum++;
-    }
-
-    if (found && sequenceNum <= 100)
+    for (int i = L; i < 101; i++)
     {
-        for (int i = 0; i < sequenceNum; i++)
-            cout << startNum / 2 + i << " ";
+        int startNum = N / i - (i - 1) / 2;
+        if (startNum >= 0 && N == (2 * startNum + i - 1) * i / 2)
+        {
+            for (int j = 0; j < i; j++)
+                cout << startNum + j << " ";
+            return 0;
+        }
     }
-
-    else
-        cout << -1;
-
+    cout << "-1";
     return 0;
 
 }
