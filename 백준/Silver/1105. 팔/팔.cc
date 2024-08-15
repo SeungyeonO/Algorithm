@@ -1,37 +1,23 @@
 #include <iostream>
-#include <cmath>
+#include <string>
 using namespace std;
 
 int main()
 {
-    long int L, R;
+    string L, R;
     cin >> L >> R;
 
-    long RRemain = R;
-    long LRemain = L;
-
     int count = 0;
-    for (int i = 9; i >= 0; i--)
+    if (L.size() == R.size())
     {
-        long digits = pow(10, i);
+        for (int i = 0; i < L.size(); i++)
+        {
+            if (L[i] != R[i])
+                break;
 
-        if (RRemain / digits == 0)
-            continue;
-
-        int RShare = RRemain / digits;
-        int LShare = LRemain / digits;
-
-        if (RShare != LShare)
-            break;
-
-        else if (RShare == 8)
-            count++;
-
-        RRemain = RRemain % digits;
-        LRemain = LRemain % digits;
+            if (L[i] == '8')
+                count++;
+        }
     }
-
     cout << count;
-
-    return 0;
 }
