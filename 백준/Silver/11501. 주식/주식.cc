@@ -16,22 +16,17 @@ int main()
             cin >> stock[j];
 
 
-        long long maxPos = -1;
+        int maxPos = N - 1;
         long long profit = 0;
-        while (maxPos != 0 && maxPos != N - 1)
+        
+        for (int k = N - 1; k >= 0; k--)
         {
-            int start = maxPos + 1;
-            maxPos = start;
-            for (int k = start; k < N; k++)
+            if (stock[k] > stock[maxPos])
             {
-                if (stock[k] >= stock[maxPos])
-                    maxPos = k;
+                maxPos = k;
+                continue;
             }
-            
-            profit += (maxPos - start) * stock[maxPos];
-            for (int k = start; k < maxPos; k++)
-                profit -= stock[k];
-
+            profit += (stock[maxPos] - stock[k]);
         }
 
         cout << profit << endl;
