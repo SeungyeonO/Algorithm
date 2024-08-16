@@ -3,6 +3,8 @@ using namespace std;
 
 int main()
 {
+    ios::sync_with_stdio(false), cin.tie(0);
+
     int T;
     cin >> T;
 
@@ -18,7 +20,7 @@ int main()
 
         int maxPos = N - 1;
         long long profit = 0;
-        
+
         for (int k = N - 1; k >= 0; k--)
         {
             if (stock[k] > stock[maxPos])
