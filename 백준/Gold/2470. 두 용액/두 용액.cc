@@ -8,21 +8,29 @@ vector<int> value;
 
 void solution()
 {
-	int num1 = value[1], num2 = value[0];
-	int min = num1 + num2;
+	int num1, num2;
+	int min = 2000000001;
 
-	for (int i = 2; i < N; i++)
+	int first = 0; 
+	int last = N - 1;
+
+	while (first < last)
 	{
-		int sum = value[i] + value[i - 1];
+		int sum = value[first] + value[last];
 		if (abs(sum) < abs(min))
 		{
-			num1 = value[i];
-			num2 = value[i - 1];
+			num1 = value[first];
+			num2 = value[last];
 			min = sum;
 
 			if (min == 0)
 				break;
 		}
+
+		if (sum < 0)
+			first++;
+		else
+			last--;
 	}
 	
 	if (num1 > num2)
@@ -31,10 +39,7 @@ void solution()
 		cout << num1 << ' ' << num2;
 }
 
-bool compare(const int& a, const int& b)
-{
-	return (abs(a) > abs(b));
-}
+
 
 int main()
 {
@@ -47,7 +52,7 @@ int main()
 		cin >> data;
 		value.push_back(data);
 	}
-	sort(value.begin(), value.end(), compare);
+	sort(value.begin(), value.end());
 
 	solution();
 }
