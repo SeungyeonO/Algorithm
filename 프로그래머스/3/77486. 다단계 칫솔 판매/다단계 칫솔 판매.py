@@ -1,30 +1,23 @@
 def solution(enroll, referral, seller, amount):
-    PRICE_OF_TOOTHBRUSH = 100
-    ANCESTOR_PROFIT_RATIO = 0.1
-
-    answer = []
-    parent_dict = dict(zip(enroll, referral))
-    profit_dict = {key: 0 for key in enroll}
+    answer = [0] * len(enroll)
+    name_to_idx = {name: i for i, name in enumerate(enroll)}
     
-    for i, sell_amount in enumerate(amount):
-        current = seller[i]
-        parent = parent_dict[current]
+    for i in range(len(seller)):
+        employee = seller[i]
+        profit = amount[i] * 100
+        
+        referee_idx = name_to_idx[employee]
+        referrer = referral[referee_idx]
 
-        total_profit = sell_amount * PRICE_OF_TOOTHBRUSH 
-        ancestor_profit = int(total_profit * ANCESTOR_PROFIT_RATIO)
-        own_profit = total_profit - ancestor_profit
+        while referrer != "-" and profit >= 10:
+            incentive = profit // 10
+            answer[referee_idx] += profit - incentive
 
-        profit_dict[current] += own_profit
-
-        while parent != "-" and ancestor_profit >= 1:
-            total_profit = ancestor_profit
-            ancestor_profit = int(total_profit * ANCESTOR_PROFIT_RATIO)
-            own_profit = total_profit - ancestor_profit
-            
-            current, parent = parent_dict[current], parent_dict[parent]
-            
-            profit_dict[current] += own_profit
-    
-    answer = list(profit_dict.values())
+            profit = incentive
+            referee_idx = name_to_idx[referrer]
+            referrer = referral[referee_idx]
+        
+        incentive = profit // 10
+        answer[referee_idx] += profit - incentive
 
     return answer
